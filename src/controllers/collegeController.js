@@ -1,5 +1,6 @@
 const collegeModel = require("../models/collegeModel")
 
+
 const { isValid, isValidBody } = require("../validation/validation")
 
 exports.createCollege = async (req, res) => {
@@ -36,6 +37,7 @@ exports.createCollege = async (req, res) => {
     }
 
 }
+
 
 
 
