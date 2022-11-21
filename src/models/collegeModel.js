@@ -22,9 +22,11 @@ const collegeSchema = new mongoose.Schema({
     "isDeleted" : {
         type : Boolean,
         default : false,
-        trim : true
-    } 
-})
+        trim : true,
+    } ,
+},
+    {timestamps:true}
+);
 
 
 module.exports = mongoose.model('collegeDetail' , collegeSchema)
