@@ -2,7 +2,7 @@ const collegeModel = require("../models/collegeModel")
 
 const { isValid, isValidBody } = require("../validation/validation")
 
-const createCollege = async (req, res) => {
+exports.createCollege = async (req, res) => {
 
     try {
         let data = req.body;

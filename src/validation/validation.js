@@ -10,9 +10,9 @@ const isValidBody = function (body) {
   
   //<<----------------Validation for College Name ---------------->>
   const isValid = function (value) {
-    if (typeof value === "undefined" || value === null) return false;
-    if (typeof value === "string" && value.trim().length > 0) return true;
-    return true;
+    if (typeof value === "undefined" || typeof value === null) return false;
+    if (typeof value === "string" && value.trim().length >= 1) return true;
+    // return true;
   };
   
   //<<----------------Validation for Email ---------------->>

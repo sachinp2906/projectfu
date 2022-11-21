@@ -2,24 +2,24 @@ const mongoose=require('mongoose')
 // { name: { mandatory, unique, example iith}, fullName: {mandatory, example `Indian Institute of Technology, Hyderabad`}, logoLink: {mandatory}, isDeleted: {boolean, default: false}
 
 const collegeSchema = new mongoose.Schema({
-    "name" : {
+    name : {
         type : String,
         required : true,
         unique : true,
         lowercase : true,
         trim : true
     },
-    "fullname" : {
+    fullname : {
         type : String,
         required : true,
         trim : true
     },
-    "logoLink" : {
+    logoLink : {
         type : String,
         required : true,
         trim : true
     },
-    "isDeleted" : {
+    isDeleted : {
         type : Boolean,
         default : false,
         trim : true,
