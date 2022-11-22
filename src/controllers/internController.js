@@ -1,13 +1,13 @@
+// .................................ImportModules.........................................
+
 const internModel = require("../models/internModel")
 const collegeModel = require("../models/collegeModel")
-
 const {isValidBody,isValidEmail,isValidMobile,isValid,isValidintern} = require("../validation/validation")
 
 
-// create intern data
+//............................. create intern data.........................................
 
 exports. createIntern = async (req, res) => {  // this type of exporting is called named exporting
-    // res.setHeader('Access-Conrol-Allow-Origin', '*');   // to allow cross origin resource sharing
     try {
       //res.setHeader("Access-Control-Allow-Origin", "*");
       const data = req.body;
@@ -40,14 +40,15 @@ exports. createIntern = async (req, res) => {  // this type of exporting is call
       if (existedMobile)
         return res.status(400).send({status: false,message: "This Mobile No. is already registered"});
   
+
       if (!collegeName)
         return res.status(400).send({ status: false, message: "Please Enter College Name" });
       if (!isValid(collegeName))
         return res.status(400).send({ status: false, message: "Please Enter Valid CollegeName" });
-  
       let collegeData = await collegeModel.findOne({ name: collegeName });
       if (!collegeData)
         return res.status(404).send({ status: false, message: "No Such College Found" });
+      if(collegeData.isDeleted==true) return res.status(400).send({status:false,msg:"college data is deleted"})
   
       data.collegeId = collegeData._id.toString();// this line means that we are adding a new property to the data object and assigning it the value of collegeData._id.toString()
   
@@ -65,9 +66,4 @@ exports. createIntern = async (req, res) => {  // this type of exporting is call
       res.status(500).send({ status: false, message: err.message });
     }
   };
-  
-  //<<======================= Imported Module =================================>>//
-  
-  // module.exports = { createIntern };  // this type of exporting is called default exporting
 
-  // cors means cross origin resource sharing it is used to allow cross origin resource sharing means to allow the data to be shared between different domains like localhost:3000 and localhost:5000
