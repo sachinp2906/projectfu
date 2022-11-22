@@ -34,7 +34,7 @@ exports.createCollege = async (req, res) => {
             return res.status(400).send({ status: false, message: "Logo is required" });
         }
 
-        const newCollege = await collegeModel.create({ name, fullName, logoLink, isDeleted });
+        const newCollege = await collegeModel.create({ name : name, fullName, logoLink, isDeleted });
 
         return res.status(201).send({ status: true, data: newCollege });
     } catch (err) {
@@ -61,7 +61,6 @@ exports.getDetails = async function (req, res) {
     res.status(500).send({status : false , message : error.message})
    }
 }
-
 
 
 

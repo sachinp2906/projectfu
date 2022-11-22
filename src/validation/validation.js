@@ -5,7 +5,7 @@ const isValidBody = function (body) {
 
 //<<------------------------------Validation for Intern Name ------------------------------------------->>
 const isValidintern = function (name) {
-  return /^[a-zA-Z]+$/.test(name);
+  return /^[ a-zA-Z ]+$/.test(name);
 };
 
 //<<---------------------------------Validation for College Name ------------------------------------->>
@@ -17,7 +17,7 @@ const isValid = function (value) {
 
 //<<--------------------------------------------Validation for Email --------------------------------->>
 const isValidEmail = function (email) {
-  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+  return /^[A-Za-z0-9.]{2,}@[A-Za-z]{2,}[.]{1}[A-Za-z.]{2,3}$/.test(email);
 };
 
 //<<-------------------------------------Validation for Mobile No. ----------------------------------->>
