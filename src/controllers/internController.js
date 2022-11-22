@@ -16,20 +16,20 @@ exports. createIntern = async (req, res) => {  // this type of exporting is call
       if (!isValidBody(data)) {
         return res.status(400).send({ status: false, message: "Interns details are required." });
       }
-  
+      
       if (!name)
         return res.status(400).send({ status: false, message: "Please Enter Your Name" });
       if (!isValidintern(name))
         return res.status(400).send({ status: false, message: "Please Enter Valid Name" });
   
       if (!email)
-        return res.status(400).send({ status: false, msg: "Please Enter your Email Id" });
+        return res.status(400).send({ status: false, message: "Please Enter your Email Id" });
       if (!isValidEmail(email))
-        return res.status(400).send({ status: false, msg: "Please Enter a valid Email Id." });
+        return res.status(400).send({ status: false, message: "Please Enter a valid Email Id." });
   
       let emailExited = await internModel.findOne({ email: email });
       if (emailExited)
-        return res.status(400).send({status: false,msg: "This Email already existed, Please Try another !"});
+        return res.status(400).send({status: false,message: "This Email already existed, Please Try another !"});
   
       if (!mobile)
         return res.status(400).send({ status: false, message: "Please Enter Your Mobile Number" });
@@ -48,7 +48,7 @@ exports. createIntern = async (req, res) => {  // this type of exporting is call
       let collegeData = await collegeModel.findOne({ name: collegeName });
       if (!collegeData)
         return res.status(404).send({ status: false, message: "No Such College Found" });
-      if(collegeData.isDeleted==true) return res.status(400).send({status:false,msg:"college data is deleted"})
+      if(collegeData.isDeleted==true) return res.status(400).send({status:false,message:"college data is deleted"})
   
       data.collegeId = collegeData._id.toString();// this line means that we are adding a new property to the data object and assigning it the value of collegeData._id.toString()
   

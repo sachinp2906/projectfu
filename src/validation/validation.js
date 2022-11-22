@@ -5,7 +5,7 @@ const isValidBody = function (body) {
 
 //<<------------------------------Validation for Intern Name ------------------------------------------->>
 const isValidintern = function (name) {
-  return /^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/.test(name);
+  return /^[a-zA-Z]+$/.test(name);
 };
 
 //<<---------------------------------Validation for College Name ------------------------------------->>
