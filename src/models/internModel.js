@@ -13,7 +13,7 @@ const internSchema = new mongoose.Schema(
             lowercase:true,
             unique:true,
             required:true,
-            trim:true,
+            trim:true
         },
 
         mobile: {

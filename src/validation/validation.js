@@ -12,7 +12,6 @@ const isValidintern = function (name) {
 const isValid = function (value) {
   if (typeof value === "undefined" || typeof value === null) return false;
   if (typeof value === "string" && value.trim().length >= 1) return true;
-  // return true;
 };
 
 //<<--------------------------------------------Validation for Email --------------------------------->>
@@ -22,8 +21,8 @@ const isValidEmail = function (email) {
 
 //<<-------------------------------------Validation for Mobile No. ----------------------------------->>
 const isValidMobile = function (mobile) {
-  return /^([+]\d{2})?\d{10}$/.test(mobile);
-};
+  return (/^[0]?[6789]\d{9}$/).test(mobile)
+}
 
 
 //<<============================Imported Validation Function Modules ===========================>>//

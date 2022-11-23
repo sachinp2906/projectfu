@@ -1,5 +1,4 @@
 // ..............................ImportModules.............................................
-const { rawListeners } = require("../models/collegeModel");
 const collegeModel = require("../models/collegeModel");
 const internModel = require("../models/internModel");
 const { isValid, isValidBody } = require("../validation/validation")
@@ -34,7 +33,7 @@ exports.createCollege = async (req, res) => {
             return res.status(400).send({ status: false, message: "Logo is required" });
         }
 
-        const newCollege = await collegeModel.create({ name : name, fullName, logoLink, isDeleted });
+        const newCollege = await collegeModel.create({ name, fullName, logoLink, isDeleted });
 
         return res.status(201).send({ status: true, data: newCollege });
     } catch (err) {
@@ -43,11 +42,11 @@ exports.createCollege = async (req, res) => {
 
 }
 
-// .................................FetchingInternDetailWithCollegeDetail..................
+// ....................................................FetchingInternDetailWithCollegeDetail...................................................................
 
 
 exports.getDetails = async function (req, res) {
-   try{ let collegeName = req.query.name
+   try{ let collegeName = req.query.collegeName
     if (!collegeName) return res.status(400).send({ status: false, message: "please provide college name in query" })
     let collegeDetail = await collegeModel.findOne({ name: collegeName })
     if (!collegeDetail) return res.status(404).send({ status: false, message: "no collegeName found" })

@@ -9,9 +9,8 @@ const {isValidBody,isValidEmail,isValidMobile,isValid,isValidintern} = require("
 
 exports. createIntern = async (req, res) => {  // this type of exporting is called named exporting
     try {
-      //res.setHeader("Access-Control-Allow-Origin", "*");
-      const data = req.body;
-      let { name, email, mobile, collegeName } = data;
+      let data = req.body
+      let { name, email, mobile, collegeName } = data
   
       if (!isValidBody(data)) {
         return res.status(400).send({ status: false, message: "Interns details are required." });
@@ -34,7 +33,7 @@ exports. createIntern = async (req, res) => {  // this type of exporting is call
       if (!mobile)
         return res.status(400).send({ status: false, message: "Please Enter Your Mobile Number" });
       if (!isValidMobile(mobile.trim()))
-        return res.status(400).send({status: false,message: "Mobile no. should contain only 10 digits"});
+        return res.status(400).send({status: false,message: "please enter valid mobile number"});
   
       let existedMobile = await internModel.findOne({ mobile });
       if (existedMobile)
@@ -51,7 +50,7 @@ exports. createIntern = async (req, res) => {  // this type of exporting is call
       if(collegeData.isDeleted==true) return res.status(400).send({status:false,message:"college data is deleted"})
   
       data.collegeId = collegeData._id.toString();// this line means that we are adding a new property to the data object and assigning it the value of collegeData._id.toString()
-  
+      
       let internData = await internModel.create(data);
       let newIntern = {
         name: internData.name,
