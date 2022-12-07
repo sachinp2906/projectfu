@@ -2,10 +2,59 @@ const bookModel = require("../models/bookModel")
 const reviewModel = require('../models/reviewModel')
 const {isValid , isValidObjectIds ,checkDate , isValidBookTitle } = require("../validation/validation")
 const moment = require('moment')
+const aws = require("aws-sdk")
+
+aws.config.update({
+    accessKeyId: "AKIAY3L35MCRZNIRGT6N",
+    secretAccessKey: "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",
+    region: "ap-south-1"
+})
+
+let uploadFile= async ( file) =>{
+   return new Promise( function(resolve, reject) {
+    // this function will upload file to aws and return the link
+    let s3= new aws.S3({apiVersion: '2006-03-01'}); // we will be using the s3 service of aws
+
+    var uploadParams= {
+        ACL: "public-read",
+        Bucket: "classroom-training-bucket",  //HERE
+        Key: "abc/" + file.originalname, //HERE 
+        Body: file.buffer
+    }
+
+
+    s3.upload( uploadParams, function (err, data ){
+        if(err) {
+            return reject({"error": err})
+        }
+        console.log(data)
+        console.log("file uploaded succesfully")
+        return resolve(data.Location)
+    })
+
+    // let data= await s3.upload( uploadParams)
+    // if( data) return data.Location
+    // else return "there is an error"
+
+   })
+}
 
 const createBook = async (req, res) => {
     try {
-        const {title , ISBN , userId , decodedToken} = req.body
+        let files= req.files
+        console.log(files)
+        if(files && files.length>0){
+            //upload to s3 and get the uploaded link
+            // res.send the link back to frontend/postman
+            let uploadedFileURL= await uploadFile( files[0] )
+            //res.status(201).send({msg: "file uploaded succesfully", data: uploadedFileURL})
+            req.body.cover = uploadedFileURL
+        }
+        //console.log(req.files)
+        // else{
+        //     res.status(400).send({ msg: "No file found" })
+        // }
+        const {title , ISBN , userId , decodedToken , cover} = req.body
         if(userId !== decodedToken.userId) {
             return res.status(401).send({ status: false, message: "Not Authorized to Create Book!" })  
         }
@@ -88,7 +137,7 @@ const getBookById = async (req, res) => {
 
 const updateBook = async (req, res) => {
     try {
-        if (Object.keys(req.body).length < 2){
+        if (Object.keys(req.body).length === 0){
             return res.status(400).send({ status: false, message: "No data given for updation" })
         } 
         const bookId = req.params.bookId;

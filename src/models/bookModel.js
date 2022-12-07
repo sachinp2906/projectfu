@@ -6,6 +6,9 @@ const bookSchema = new mongoose.Schema(
             unique:true,
             required : true
         },
+        cover : {
+            type : String
+        },
         excerpt :{
             type:String,
             required:true

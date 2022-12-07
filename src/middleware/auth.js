@@ -68,10 +68,11 @@ try {
 //  **********************************************************  Book Creation  Validation *****************
 
 const bookCreateValidation = function (req, res, next) {
+    
     try {
         console.log(req.body)
         if (Object.keys(req.body).length == 0) return res.status(400).send({ status: false, message: 'No User Data Exist in Body' })
-        const { title, excerpt, userId, ISBN, category, subcategory, releasedAt } = req.body
+        const { title , excerpt, userId, ISBN, category, subcategory, releasedAt } = req.body
         if (!isValid(excerpt)) {
             return res.status(400).send({status: false, msg: "Enter User Excerpts !" })
         }
