@@ -54,7 +54,7 @@ const createBook = async (req, res) => {
         // else{
         //     res.status(400).send({ msg: "No file found" })
         // }
-        const {title , ISBN , userId , decodedToken , cover} = req.body
+        const {title , ISBN , userId , decodedToken } = req.body
         if(userId !== decodedToken.userId) {
             return res.status(401).send({ status: false, message: "Not Authorized to Create Book!" })  
         }

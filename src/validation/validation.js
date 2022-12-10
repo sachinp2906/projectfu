@@ -3,7 +3,7 @@ const {isValidObjectId} = require("mongoose")
 // validation for name 
 
 const isValidName =function(name){
-    const  nameRegex =/^[a-zA-Z( \)]{2,20}$/
+    const  nameRegex =/^[a-zA-Z( \)]{1,20}$/
     return nameRegex.test(name)
 }
 
@@ -52,8 +52,7 @@ const isBoolean = function(value){
 
 const isValid = function(value){
     if(typeof value ==='undefined' || value ===null)  return false
-    if(typeof value ==='string' && value.trim().length == 0) return false
-    return true
+    if(typeof value ==='string' && value.trim().length > 0) return true
 }
        
 // Each Field has to Valid Means String and Number only not special Charactors

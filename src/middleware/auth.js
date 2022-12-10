@@ -109,7 +109,7 @@ const bookCreateValidation = function (req, res, next) {
         if (!ISBN){
             return res.status(400).send({ status: false, msg: "Please Enter ISBN Number !" })
         } 
-        if (!/^[0-9]{8,15}$/.test(ISBN)) {
+        if (!/^[0-9]{13}$/.test(ISBN)) {
             return res.status(400).send({ status: false, msg: "Please Enter valid ISBN Number !" })
         }
         if (!checkDate(releasedAt)) {
@@ -160,14 +160,14 @@ const autherisation = async (req, res, next) => {
         if (!isValidObjectIds(bookId)) {
             return res.status(400).send({ status: false, message: "Enter Valid book Id" })
         }
-        const user = await bookModel.findById(bookId)
-        if (!user){
-            return res.status(404).send({ status: false, message: "InCorrect Book id !" })
+        const book = await bookModel.findById(bookId)
+        if (!book){
+            return res.status(404).send({ status: false, message: "no book with this id !" })
         } 
-        if (user.isDeleted == true){
+        if (book.isDeleted == true){
             return res.status(400).send({ status: false, message: "Book Already Deleted !" })
         }
-        if (user.userId.toString() !== req.body.decodedToken.userId) {
+        if (book.userId.toString() !== req.body.decodedToken.userId) {
             return res.status(403).send({ status: false, message: "Not Authorized !" })
         }
     
@@ -249,7 +249,7 @@ const putDeeleteReview =  async (req,res ,next)=>{
         }
         
         req.body.bookData = bookData
-        console.log(bookData) , req.Body
+        //console.log(bookData) , req.Body
         req.body.reviewsData = reviewsData
 
     next()

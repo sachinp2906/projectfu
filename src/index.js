@@ -10,6 +10,7 @@ app.use(multer().any())
 
 
 mongoose.connect('mongodb+srv://sachinfu:2906@sachinfu.fcpe6tc.mongodb.net/group26database', {
+    // mongodb+srv
     useNewUrlParser : true
 })
 .then(()=>console.log("mongoDb is connected"))
