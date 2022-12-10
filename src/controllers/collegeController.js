@@ -46,19 +46,25 @@ exports.createCollege = async (req, res) => {
 
 
 exports.getDetails = async function (req, res) {
-   try{ let collegeName = req.query.collegeName
-    if (!collegeName) return res.status(400).send({ status: false, message: "please provide college name in query" })
-    let collegeDetail = await collegeModel.findOne({ name: collegeName })
-    if (!collegeDetail) return res.status(404).send({ status: false, message: "no collegeName found" })
-    if (collegeDetail.isDeleted == true) return res.status(400).send({ status: false, msg: "college data is deleted" })
-    const cDetail = { name: collegeDetail.name, fullName: collegeDetail.fullName, logoLink: collegeDetail.logoLink }
-    let Name = collegeDetail._id
-    let internDetail = await internModel.find({ collegeId: Name , isDeleted: false }).select({ name: 1, email: 1, mobile: 1 })
-    if (internDetail.length === 0) return res.status(404).send({ status: false, message: "no intern found" })
-    res.status(200).send({status : true, data: cDetail, intern: internDetail })
-   }catch(error) {
-    res.status(500).send({status : false , message : error.message})
-   }
+    try {
+        let collegeName = req.query.collegeName
+        if (!collegeName) return res.status(400).send({ status: false, message: "please provide college name in query" })
+
+        let collegeDetail = await collegeModel.findOne({ name: collegeName })
+        if (!collegeDetail) return res.status(404).send({ status: false, message: "no collegeName found" })
+
+        if (collegeDetail.isDeleted == true) return res.status(400).send({ status: false, msg: "college data is deleted" })
+
+        const cDetail = { name: collegeDetail.name, fullName: collegeDetail.fullName, logoLink: collegeDetail.logoLink }
+
+        let collegeId = collegeDetail._id
+
+        let internDetail = await internModel.find({ collegeId: collegeId , isDeleted: false }).select({ name: 1, email: 1, mobile: 1 })
+        if (internDetail.length === 0) return res.status(404).send({ status: false, message: "no intern found" })
+        res.status(200).send({ status: true, data: cDetail, intern: internDetail })
+    } catch (error) {
+        res.status(500).send({ status: false, message: error.message })
+    }
 }
 
 
