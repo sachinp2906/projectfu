@@ -103,9 +103,12 @@ const shortUrl = async (req, res) => {
 const getShortUrl = async (req, res) => {
     try {
         urlCode = req.params.urlCode
-
         if (!urlCode) {
             return res.status(400).send({ status: false, message: "please provide uriCode in params" })
+        }
+       
+        if(!shortid.isValid(urlCode)) {
+            return await res.status(400).send({status : false, message : "shortid is not valid"})
         }
 
         let cahcedUrlData = await GET_ASYNC(`${urlCode}`)
